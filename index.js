@@ -1,7 +1,6 @@
 import express from "express"; // part of the ES6 module system
 //const express = require('express'); // comoonJS module system, which is older
 import bodyParser from "body-parser";
-
 import usersRoutes from "./routes/users.js";
 
 const app = express();

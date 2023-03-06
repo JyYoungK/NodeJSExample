@@ -1,35 +1,43 @@
 import express from "express";
+import {
+  getUsers,
+  createUser,
+  getUser,
+  deleteUser,
+  updateUser,
+} from "../controllers/users.js";
 
 const router = express.Router();
 
-const users = [
-  {
-    firstName: "John",
-    lastName: "Doe",
-    age: 25,
-  },
-  {
-    firstName: "Jane",
-    lastName: "Doe",
-    age: 24,
-  },
-];
+// let users = [
+//   {
+//     firstName: "John",
+//     lastName: "Doe",
+//     age: 25,
+//   },
+//   {
+//     firstName: "Jane",
+//     lastName: "Doe",
+//     age: 24,
+//   },
+// ];
 
 //all routes in here are starting with /users
 //displaying info
-router.get("/", (req, res) => {
-  res.send(users);
-  console.log(users);
-});
+router.get("/", getUsers);
 
 //Browser can only do get request, so you need a software like postman to do it
 //Here is a good place to use requst to post
 //writing info
-router.post("/", (req, res) => {
-  console.log("POST ROUTE REACHED");
-  const user = req.body;
-  users.push(user);
-  res.send(`User with the name ${user.firstName} added to the database`);
-});
+//it's good to separate it like this like 'createUser' to make it look cleaner
+router.post("/", createUser);
+
+// to make this only accept id is to
+// => req.params { id:2 }
+router.get("/:id", getUser);
+
+router.delete("/:id", deleteUser);
+
+router.patch("/:id", updateUser);
 
 export default router;
