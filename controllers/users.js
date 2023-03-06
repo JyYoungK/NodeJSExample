@@ -13,17 +13,24 @@ export const createUser = (req, res) => {
 
   users.push({ ...user, id: uuid() });
 
-  console.log(`User ${user.firstName} added to the database.`);
+  res.send(`User ${user.firstName} added to the database.`);
 };
 
+// to make this only accept id is to
+// => req.params { id:2 }
 export const getUser = (req, res) => {
-  res.send(req.params);
+  const { id } = req.params;
+  const foundUser = users.find((user) => user.id === id);
+  res.send(foundUser);
 };
 
 export const deleteUser = (req, res) => {
   console.log(`user with id ${req.params.id} has been deleted`);
 
+  const { id } = req.params;
   users = users.filter((user) => user.id !== req.params.id);
+
+  res.send(`User with the id ${id} was deleted from the database`);
 };
 
 export const updateUser = (req, res) => {
